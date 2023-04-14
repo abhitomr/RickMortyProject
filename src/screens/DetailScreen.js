@@ -5,13 +5,13 @@ const textSize = 20
 
 export default function DetailScreen({ navigation, route }) {
 
-    let Data = route.params?.detail;
+    let Data = route?.params?.detail;
     const [EpisodeList, setEpisodeList] = useState([]);
     const [Loading, setLoading] = useState(true);
 
 
     const getEpisodeData = () => {
-        const promises = Data.episode.map(url => {
+        const promises = Data?.episode.map(url => {
             return axios.get(url).then(response => response?.data?.name);
         });
 
@@ -101,17 +101,17 @@ export default function DetailScreen({ navigation, route }) {
                         <Image
                             style={styles.imageView}
                             source={{
-                                uri: Data.image
+                                uri: Data?.image
                             }}
                         />
                     </View>
                     <View style={styles.view3} />
                     <View style={styles.view4}>
-                        <Detail subHead={Data.name} head={"Name"} />
-                        <Detail subHead={Data.species} head={"Species"} />
-                        <Detail subHead={Data.location.name} head={"Location"} />
-                        <Detail subHead={Data.origin.name} head={"Origin"} />
-                        <Detail subHead={Data.status} head={"Status"} />
+                        <Detail subHead={Data?.name} head={"Name"} />
+                        <Detail subHead={Data?.species} head={"Species"} />
+                        <Detail subHead={Data?.location.name} head={"Location"} />
+                        <Detail subHead={Data?.origin.name} head={"Origin"} />
+                        <Detail subHead={Data?.status} head={"Status"} />
                         <Detail subHead={Data?.episode?.length} head={"Episode"} />
                         <DetailOfEpisodes subHead={Data?.episode} head={"List of episodes"} />
                     </View>
