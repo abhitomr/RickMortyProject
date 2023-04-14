@@ -15,7 +15,7 @@ const ListScreen = ({ navigation }) => {
 
   if (loading) {
     return (
-      <View style={[styles.container,styles.loadingViewStyle]}>
+      <View style={[styles.container, styles.loadingViewStyle]}>
         <ActivityIndicator size="large" color="#fcfcfc" />
         <Text style={styles.loadingText}>
           Loading
@@ -26,8 +26,8 @@ const ListScreen = ({ navigation }) => {
 
   if (error) {
     return (
-      <View>
-        <Text>Error: {error.message}</Text>
+      <View style={[styles.container, styles.loadingViewStyle]}>
+        <Text style={styles.text2}>Error: {error.message}</Text>
       </View>
     );
   }
@@ -43,13 +43,15 @@ const ListScreen = ({ navigation }) => {
   }
 
   const CardView = ({ item }) => {
-    let color = item.status == "Alive" ? "green" :item.status == "Dead" ? "red" : "grey"
+    let color = item.status == "Alive" ? "green" : item.status == "Dead" ? "red" : "grey"
     return (
-      <TouchableOpacity style={styles.card} onPress={()=>{navigation.navigate({
-        name: 'Detail',
-        params: { detail: item },
-        merge: true,
-      })}}>
+      <TouchableOpacity style={styles.card} onPress={() => {
+        navigation.navigate({
+          name: 'Detail',
+          params: { detail: item },
+          merge: true,
+        })
+      }}>
         <View style={styles.imageView}>
           <Image
             style={styles.image}
@@ -61,8 +63,8 @@ const ListScreen = ({ navigation }) => {
         </View>
         <View style={styles.detailView}>
           <View style={styles.view1}>
-          <Text style={[styles.title,{flex:6}]} >{item.name}</Text>
-          <View style={[styles.statusView,{backgroundColor:color}]} />
+            <Text style={[styles.title, { flex: 6 }]} >{item.name}</Text>
+            <View style={[styles.statusView, { backgroundColor: color }]} />
           </View>
           <Subheading initialHead={'Species'} Description={item.species} />
           <Subheading initialHead={'Location'} Description={item?.location?.name} />
@@ -74,10 +76,23 @@ const ListScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+
       <FlatList
         data={data?.results}
         showsVerticalScrollIndicator={false}
         keyExtractor={item => item.id}
+        style={{
+          marginTop: 20
+        }}
+        ListHeaderComponent={() => {
+          return (
+            <View style={style.textView}>
+              <Text style={styles.text2}>
+                List of all character's
+              </Text>
+            </View>
+          )
+        }}
         renderItem={
           ({ item }) => {
             return <CardView item={item} />
@@ -96,16 +111,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10
   },
-  loadingViewStyle:{
-    flexDirection:'column',
-justifyContent:'center',
-alignItems:'center'
+  loadingViewStyle: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  loadingText:{
+  loadingText: {
     color: '#fcfcfc',
     fontSize: 18,
-    marginVertical:10,
-    alignSelf:'center'
+    marginVertical: 10,
+    alignSelf: 'center'
   },
   card: {
     flex: 1,
@@ -126,6 +141,14 @@ alignItems:'center'
   imageView: {
     flex: 1,
   },
+  textView: { alignItems: 'center', backgroundColor: '#3c3e44', flex: 1, height: 40 },
+  text2: {
+    color: '#fcfcfc',
+    fontSize: 20,
+    flex: 1,
+    fontWeight: 'bold',
+    marginVertical: 5
+  },
   image: {
     flex: 1,
     width: 100,
@@ -140,7 +163,7 @@ alignItems:'center'
     color: '#fcfcfc',
     fontSize: 18,
     fontWeight: 'bold',
-    marginVertical:5
+    marginVertical: 5
   },
   subHeadingTitle: {
     color: '#fcfcfc',
@@ -156,12 +179,12 @@ alignItems:'center'
   subHeadingView: {
     flex: 1, flexDirection: 'row'
   },
-  colonstyle:{
-    flex:0.2,
-    color:'#fcfcfc'
+  colonstyle: {
+    flex: 0.2,
+    color: '#fcfcfc'
   },
-  view1:{flex:1,alignItems:'center' ,flexDirection:'row'},
-  statusView:{width:15,height:15,borderRadius:15/2,right:2}
+  view1: { flex: 1, alignItems: 'center', flexDirection: 'row' },
+  statusView: { width: 15, height: 15, borderRadius: 15 / 2, right: 2 }
 })
 
 export default ListScreen;
