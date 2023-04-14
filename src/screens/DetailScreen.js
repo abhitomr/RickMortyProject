@@ -60,14 +60,14 @@ export default function DetailScreen({ navigation, route }) {
                 </View>
                 {Loading ?
                     <ActivityIndicator size="large" color="#fcfcfc" style={{ flex: 2, marginVertical: 10 }} />
-                    : <View style={{ flexDirection: 'column' }}>
+                    : <View style={{ flexDirection: 'column', marginTop:10 }}>
                         {
                             EpisodeList.map((item, index) => {
                                 return (
                                     <View key={index} style={{ flexDirection: 'row' }}>
                                         <Text style={styles.text4
                                         }>
-                                            {index + 1}
+                                            {index + 1}:
                                         </Text>
                                         <Text style={
                                             styles.text5

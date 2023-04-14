@@ -82,11 +82,11 @@ const ListScreen = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         keyExtractor={item => item.id}
         style={{
-          marginTop: 20
+          marginTop: 10
         }}
         ListHeaderComponent={() => {
           return (
-            <View style={style.textView}>
+            <View style={styles.textView}>
               <Text style={styles.text2}>
                 List of all character's
               </Text>
